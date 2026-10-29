@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>לכל ציור יש שם — תצוגה מקדימה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf7f1; --card:#ffffff; --ink:#26221c; --muted:#8a8175;
+    --line:#eae2d5; --accent:#a8843f; --accent-soft:#f3ead7;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Heebo',system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;padding-bottom:40px}
+  header{background:linear-gradient(180deg,#fffdf9,#faf7f1);border-bottom:1px solid var(--line);
+         padding:22px 16px 16px;position:sticky;top:0;z-index:10}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:clamp(26px,7vw,40px);
+     margin:0 0 4px;text-align:center;letter-spacing:-.5px}
+  .candle{text-align:center;color:var(--accent);font-size:15px;letter-spacing:2px;margin-bottom:10px}
+  .sub{text-align:center;color:var(--muted);font-size:14px;font-weight:300;margin:0 0 16px;line-height:1.6}
+  .searchbar{position:relative;max-width:560px;margin:0 auto}
+  input[type=search]{width:100%;padding:15px 46px 15px 18px;font-size:16px;font-family:inherit;
+     border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);
+     box-shadow:0 1px 2px rgba(0,0,0,.03);outline:none}
+  input[type=search]:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .searchbar .ico{position:absolute;inset-inline-end:16px;top:50%;transform:translateY(-50%);
+     color:var(--muted);font-size:17px;pointer-events:none}
+  .meta{max-width:560px;margin:10px auto 0;display:flex;justify-content:space-between;
+        align-items:center;color:var(--muted);font-size:13px;min-height:18px}
+  main{max-width:1080px;margin:22px auto 0;padding:0 14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+        box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;flex-direction:column}
+  .card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#f0ece4}
+  .cap{padding:10px 10px 12px;text-align:center}
+  .nm{font-family:'Frank Ruhl Libre',serif;font-size:16px;font-weight:500;line-height:1.3}
+  .dt{color:var(--muted);font-size:12.5px;margin-top:3px;font-weight:300}
+  mark{background:var(--accent-soft);color:inherit;border-radius:3px;padding:0 1px}
+  .empty{text-align:center;color:var(--muted);padding:60px 20px;font-size:16px}
+  footer{max-width:1080px;margin:44px auto 0;padding:18px 16px 0;border-top:1px solid var(--line);
+         text-align:center;color:var(--muted);font-size:12.5px;line-height:1.7;font-weight:300}
+  .badge{display:inline-block;background:var(--accent-soft);color:var(--accent);border-radius:20px;
+         padding:3px 12px;font-size:12px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="candle">✦</div>
+    <h1>לכל ציור יש שם</h1>
+    <p class="sub">הקדשת ציורים לנרצחים ולחללים<br>תצוגה מקדימה של האתר החדש — עם חיפוש</p>
+    <div class="searchbar">
+      <input id="q" type="search" placeholder="חיפוש לפי שם, עיר או גיל…" autocomplete="off" enterkeyhint="search">
+      <span class="ico">🔍</span>
+    </div>
+    <div class="meta"><span id="count"></span><span id="hint"></span></div>
+  </div>
+</header>
+<main>
+  <div id="grid" class="grid"></div>
+  <div id="empty" class="empty" style="display:none">לא נמצאו תוצאות 🕯️<br><span style="font-size:13px">נסו שם אחר, או חלק ממנו</span></div>
+</main>
+<footer>
+  <div class="badge">תצוגה מקדימה — 25 דוגמאות מתוך האוסף המלא</div>
+  <div>האתר החדש נבנה באהבה · ללא Wix · חיפוש מהיר לפי שם</div>
+</footer>
+<script>
+const DATA = [{"name": "אבי אברהם חטואל", "age": 52, "city": "אופקים", "title": "לזכר אבי אברהם חטואל ז''ל, 52, אופקים", "img": "https://static.wixstatic.com/media/7e2076_cf475a2beb2543c6a745cdc2ef7ca52a~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_cf475a2beb2543c6a745cdc2ef7ca52a~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_cf475a2beb2543c6a745cdc2ef7ca52a~mv2.jpg"}, {"name": "אבי דדון", "age": 44, "city": "עפולה", "title": "לזכר אבי דדון ז''ל, 44, עפולה", "img": "https://static.wixstatic.com/media/7e2076_16b722c6c3a8473da3085a72803cb442~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_16b722c6c3a8473da3085a72803cb442~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_16b722c6c3a8473da3085a72803cb442~mv2.jpg"}, {"name": "אבי זקוטו", "age": 53, "city": "באר שבע", "title": "לזכר אבי זקוטו ז''ל, 53, באר שבע", "img": "https://static.wixstatic.com/media/7e2076_9018d3d3591042fab33c224f02f5a7e9~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_9018d3d3591042fab33c224f02f5a7e9~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_9018d3d3591042fab33c224f02f5a7e9~mv2.jpg"}, {"name": "אבי חסדאי", "age": 53, "city": "רמת גן", "title": "לזכר אבי חסדאי ז''ל, 53, רמת גן", "img": "https://static.wixstatic.com/media/7e2076_af6faf7404474e0a974f4ebaa0b2d5ad~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_af6faf7404474e0a974f4ebaa0b2d5ad~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_af6faf7404474e0a974f4ebaa0b2d5ad~mv2.jpg"}, {"name": "אבי מגירא", "age": 48, "city": "שדרות", "title": "לזכר אבי מגירא ז''ל, 48, שדרות", "img": "https://static.wixstatic.com/media/7e2076_21ca2a58efd845d3a7f002ff86cbf5f8~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_21ca2a58efd845d3a7f002ff86cbf5f8~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_21ca2a58efd845d3a7f002ff86cbf5f8~mv2.jpg"}, {"name": "אבי מור", "age": 61, "city": "בארי", "title": "לזכר אבי מור ז''ל, 61, בארי", "img": "https://static.wixstatic.com/media/7e2076_6a49c9bb68b9412595ababca5b57288d~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_6a49c9bb68b9412595ababca5b57288d~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_6a49c9bb68b9412595ababca5b57288d~mv2.jpg"}, {"name": "אבי סאסי", "age": 64, "city": "לוס אנג'לס", "title": "לזכר אבי סאסי ז''ל, 64, לוס אנג'לס", "img": "https://static.wixstatic.com/media/7e2076_98398df5e6364c4386eef58bd1aba136~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_98398df5e6364c4386eef58bd1aba136~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_98398df5e6364c4386eef58bd1aba136~mv2.jpg"}, {"name": "אביאל אורן", "age": 28, "city": "ירושלים", "title": "לזכר אביאל אורן ז''ל, 28, ירושלים", "img": "https://static.wixstatic.com/media/7e2076_b335159fa610473191821ffcd934980c~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_b335159fa610473191821ffcd934980c~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_b335159fa610473191821ffcd934980c~mv2.jpg"}, {"name": "אביאל שלום רחמים", "age": null, "city": "מרכז שפירא", "title": "לזכר אביאל שלום רחמים ז''ל, מרכז שפירא", "img": "https://static.wixstatic.com/media/7e2076_a925039682de4c0cba9eca638f20a0d3~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_a925039682de4c0cba9eca638f20a0d3~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_a925039682de4c0cba9eca638f20a0d3~mv2.jpg"}, {"name": "אביב אליהו", "age": 38, "city": "מעלה יוסף", "title": "לזכר אביב אליהו ז''ל, 38, מעלה יוסף", "img": "https://static.wixstatic.com/media/7e2076_3accbf9790624b79866bb79045df2c3a~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_3accbf9790624b79866bb79045df2c3a~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_3accbf9790624b79866bb79045df2c3a~mv2.jpg"}, {"name": "אביב אצילי", "age": 49, "city": "ניר עוז", "title": "לזכר אביב אצילי ז\"ל, 49, ניר עוז", "img": "https://static.wixstatic.com/media/7e2076_cb8d7a14fbd8477ca3729ceadf61bdb5~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_cb8d7a14fbd8477ca3729ceadf61bdb5~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_cb8d7a14fbd8477ca3729ceadf61bdb5~mv2.jpg"}, {"name": "אביב ורטהיים", "age": 57, "city": "כפר עזה", "title": "לזכר אביב ורטהיים ז''ל, 57, כפר עזה", "img": "https://static.wixstatic.com/media/7e2076_6a859a66e7c04bb293818edd57e7441f~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_6a859a66e7c04bb293818edd57e7441f~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_6a859a66e7c04bb293818edd57e7441f~mv2.jpg"}, {"name": "אביב קוץ", "age": 50, "city": "כפר עזה", "title": "לזכר אביב קוץ ז''ל, 50, כפר עזה", "img": "https://static.wixstatic.com/media/7e2076_17eb09ce97a34bdab17ea6cc76faf094~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_17eb09ce97a34bdab17ea6cc76faf094~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_17eb09ce97a34bdab17ea6cc76faf094~mv2.jpg"}, {"name": "אבידן תורג'מן", "age": 26, "city": "משואות יצחק", "title": "לזכר אבידן תורג'מן ז''ל, 26, משואות יצחק", "img": "https://static.wixstatic.com/media/7e2076_e02690c2fbcb4612802833187b039b42~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_e02690c2fbcb4612802833187b039b42~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_e02690c2fbcb4612802833187b039b42~mv2.jpg"}, {"name": "אביה גנוט", "age": 22, "city": "צופים", "title": "לזכר אביה גנוט ז''ל, 22, צופים", "img": "https://static.wixstatic.com/media/7e2076_787b2dfd2fd3412481a602c2f0e3d59a~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_787b2dfd2fd3412481a602c2f0e3d59a~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_787b2dfd2fd3412481a602c2f0e3d59a~mv2.jpg"}, {"name": "אביה חצרוני", "age": 69, "city": "חובש בכיר במד''א", "title": "לזכר אביה חצרוני ז''ל, 69, קיבוץ בארי, חובש בכיר במד''א", "img": "https://static.wixstatic.com/media/7e2076_f087c4181af44382b487e2a154309bcd~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_f087c4181af44382b487e2a154309bcd~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_f087c4181af44382b487e2a154309bcd~mv2.jpg"}, {"name": "אביעד אברהם אדרי", "age": 31, "city": "ניצן ב'", "title": "לזכר אביעד אברהם אדרי ז''ל, 31, ניצן ב'", "img": "https://static.wixstatic.com/media/7e2076_196379d2ce56452c97b9be20d11121e4~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_196379d2ce56452c97b9be20d11121e4~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_196379d2ce56452c97b9be20d11121e4~mv2.jpg"}, {"name": "אביעד הלוי", "age": 29, "city": "גן הדרום", "title": "לזכר אביעד הלוי ז''ל, 29, גן הדרום", "img": "https://static.wixstatic.com/media/7e2076_1e4918f38ac344158ed4cf6fa7f9cb92~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_1e4918f38ac344158ed4cf6fa7f9cb92~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_1e4918f38ac344158ed4cf6fa7f9cb92~mv2.jpg"}, {"name": "אביתר (תרי) קיפניס", "age": 66, "city": "בארי", "title": "לזכר אביתר (תרי) קיפניס ז''ל, 66, בארי", "img": "https://static.wixstatic.com/media/7e2076_e854174e2e2a4c35a118adfe717cd7db~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_e854174e2e2a4c35a118adfe717cd7db~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_e854174e2e2a4c35a118adfe717cd7db~mv2.jpg"}, {"name": "אבלום אלברט מילס", "age": 80, "city": "בארי.jpg", "title": "לזכר אבלום אלברט מילס ז''ל, 80, בארי.jpg", "img": "https://static.wixstatic.com/media/7e2076_f5216111ec4f42f4b527f00544c4c084~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_f5216111ec4f42f4b527f00544c4c084~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_f5216111ec4f42f4b527f00544c4c084~mv2.jpg"}, {"name": "אבנר גורן", "age": 56, "city": "ניר עוז", "title": "לזכר אבנר גורן ז''ל, 56, ניר עוז", "img": "https://static.wixstatic.com/media/7e2076_cc9708e464234827a3eea29fed527d55~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_cc9708e464234827a3eea29fed527d55~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_cc9708e464234827a3eea29fed527d55~mv2.jpg"}, {"name": "אברהם גלעד טיברג", "age": 24, "city": "פתח תקווה", "title": "לזכר אברהם גלעד טיברג ז''ל, 24, פתח תקווה", "img": "https://static.wixstatic.com/media/7e2076_f63abbc51c424868bedb05977b3a44a9~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_f63abbc51c424868bedb05977b3a44a9~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_f63abbc51c424868bedb05977b3a44a9~mv2.jpg"}, {"name": "אברהם כהן", "age": 75, "city": "בני ברק", "title": "לזכר אברהם כהן ז\"ל, 75, בני ברק", "img": "https://static.wixstatic.com/media/7e2076_82bf0c54ecdb4d72bf7aa153ae0845e2~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_82bf0c54ecdb4d72bf7aa153ae0845e2~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_82bf0c54ecdb4d72bf7aa153ae0845e2~mv2.jpg"}, {"name": "אברהם מונדר", "age": 78, "city": "ניר עוז", "title": "לזכר אברהם מונדר ז\"ל, 78, ניר עוז", "img": "https://static.wixstatic.com/media/7e2076_7b76782999af4f0d8dd48d8cca25e7e8~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_7b76782999af4f0d8dd48d8cca25e7e8~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_7b76782999af4f0d8dd48d8cca25e7e8~mv2.jpg"}, {"name": "אברהם סומיכי", "age": 77, "city": "חולון", "title": "לזכר אברהם סומיכי ז\"ל, 77, חולון", "img": "https://static.wixstatic.com/media/7e2076_1b0446bb3f2144149af84bc0ad2d3000~mv2.jpg", "thumb": "https://static.wixstatic.com/media/7e2076_1b0446bb3f2144149af84bc0ad2d3000~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/7e2076_1b0446bb3f2144149af84bc0ad2d3000~mv2.jpg"}];
+
+const FINAL = {'ך':'כ','ם':'מ','ן':'נ','ף':'פ','ץ':'צ'};
+function norm(s){
+  return (s||'').toString()
+    .replace(/[\u0591-\u05C7]/g,'')
+    .replace(/[\u05F3\u05F4"\u2018\u2019'`]/g,'')
+    .replace(/[ךםןףץ]/g, c => FINAL[c])
+    .replace(/\s+/g,' ')
+    .trim()
+    .toLowerCase();
+}
+DATA.forEach(d => { d._n = norm(d.name); d._c = norm(d.city); d._a = d.age ? String(d.age) : ''; });
+
+const q = document.getElementById('q');
+const grid = document.getElementById('grid');
+const empty = document.getElementById('empty');
+const count = document.getElementById('count');
+const hint = document.getElementById('hint');
+
+function esc(s){ return (s||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+function highlight(text, query){
+  const nq = norm(query);
+  if(!nq) return esc(text);
+  const idx = norm(text).indexOf(nq);
+  if(idx < 0) return esc(text);
+  return esc(text.slice(0, idx)) + '<mark>' + esc(text.slice(idx, idx + nq.length)) + '</mark>' + esc(text.slice(idx + nq.length));
+}
+
+function render(query){
+  const nq = norm(query);
+  const list = nq ? DATA.filter(d => d._n.includes(nq) || d._c.includes(nq) || d._a === nq || d._a.startsWith(nq)) : DATA;
+  grid.innerHTML = list.map(d => `
+    <div class="card">
+      <img loading="lazy" src="${d.thumb}" alt="${esc(d.name)}">
+      <div class="cap">
+        <div class="nm">${highlight(d.name, query)}</div>
+        <div class="dt">${d.age ? 'בן/בת ' + d.age + ' · ' : ''}${esc(d.city || '')}</div>
+      </div>
+    </div>`).join('');
+  empty.style.display = list.length ? 'none' : 'block';
+  count.textContent = nq ? `נמצאו ${list.length} מתוך ${DATA.length}` : `${DATA.length} ציורים בתצוגה`;
+  hint.textContent = nq ? 'לחיצה על ✕ לניקוי' : '';
+}
+
+q.addEventListener('input', e => render(e.target.value));
+render('');
+</script>
+</body>
+</html>
